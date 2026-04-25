@@ -1,0 +1,25 @@
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import Nav from "./components/Nav";
+import Add from "./pages/Add";
+import Home from "./pages/Home";
+import Lists from "./pages/Lists";
+import Login from "./pages/Login";
+import Orders from "./pages/Orders";
+
+function App() {
+  return (
+    <>
+
+      <Routes>
+        <Route path="/" element={ <Home /> } />
+        <Route path="/add/" element={ <Add /> } />
+        <Route path="/lists" element={ <Lists /> } />
+        <Route path="/login" element={ <Login /> } />
+        <Route path="/orders" element={ <Orders /> } />
+      </Routes>
+    </>
+  );
+}
+
+export default App;
