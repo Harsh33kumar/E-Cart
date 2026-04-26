@@ -85,6 +85,7 @@ const {
   singleProduct,
   updateProduct,
   deleteProduct,
+  viewProduct
 } = require("../controller/productConroller");
 
 /* =========================================
@@ -115,6 +116,7 @@ ProductRoutes.get("/list", listProduct);
    SINGLE PRODUCT
 ========================================= */
 ProductRoutes.get("/single/:id", singleProduct);
+ProductRoutes.get("/view/:id", viewProduct);
 
 /* =========================================
    UPDATE PRODUCT

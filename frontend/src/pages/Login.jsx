@@ -1,37 +1,39 @@
-// import React, { useState, useContext } from 'react';
+// import React, { useState,useContext } from 'react';
 // import { NavLink, useNavigate } from 'react-router-dom';
 // import axios from 'axios';
-// import { adminDataContext } from '../context/UserContext';
+// import {userDataContext} from "../context/UserContext"
+
 
 // function Login() {
+//   let { getCurrentUser } = useContext(userDataContext);
+
 //   const navigate = useNavigate();
+
 //   const [form, setForm] = useState({
 //     email: "",
 //     password: ""
 //   });
-//   let {adminData, getAdmin} = useContext(adminDataContext);
 
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
 
 //     try {
+
 //       const res = await axios.post(
-//         // "http://localhost:5000/api/admin/adminlogin",
-//         "/api/admin/adminlogin",
+//         "/api/auth/login",
 //         form,
 //         { withCredentials: true }
 //       );
-//        console.log(res.data.Token);
 
 //       if (res.data.success) {
+//         getCurrentUser();
 //         alert("Login Successful");
-//         getAdmin();
 //         navigate("/");
+
 //       }
 
 //     } catch (error) {
 //       alert(error.response?.data?.message || "Login Failed");
-//       console.log(error)
 //     }
 //   };
 
@@ -79,9 +81,10 @@
 import React, { useState, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { adminDataContext } from "../context/UserContext";
+import { userDataContext } from "../context/UserContext";
 
 function Login() {
+  const { getCurrentUser } = useContext(userDataContext);
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -89,94 +92,83 @@ function Login() {
     password: "",
   });
 
-  const { getAdmin } = useContext(adminDataContext);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const res = await axios.post(
-        "/api/admin/adminlogin",
+        "/api/auth/login",
         form,
         { withCredentials: true }
       );
 
       if (res.data.success) {
+        getCurrentUser();
         alert("Login Successful");
-        getAdmin();
         navigate("/");
       }
     } catch (error) {
       alert(error.response?.data?.message || "Login Failed");
-      console.log(error);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#111827] to-[#1e293b] flex items-center justify-center px-4">
-      
-      <div className="w-full max-w-md bg-white/10 backdrop-blur-lg border border-white/10 rounded-3xl shadow-2xl p-8 text-white">
+    <div className="min-h-screen bg-gradient-to-r from-[#0f172a] to-[#1e293b] flex items-center justify-center px-4">
+      <div className="w-full max-w-md bg-[#1e293b] shadow-2xl rounded-2xl p-8 border border-gray-700">
         
         {/* Heading */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold">Admin Login</h1>
-          <p className="text-slate-300 mt-2">
-            Welcome back to your dashboard
-          </p>
-        </div>
+        <h2 className="text-4xl font-bold text-center text-cyan-400 mb-2">
+          Login
+        </h2>
+
+        <p className="text-center text-gray-400 mb-8">
+          Welcome back to your account
+        </p>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-5">
-          
-          <div>
-            <label className="block text-sm mb-2 text-slate-300">
-              Email Address
-            </label>
 
-            <input
-              type="email"
-              placeholder="Enter your email"
-              value={form.email}
-              onChange={(e) =>
-                setForm({ ...form, email: e.target.value })
-              }
-              className="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-600 outline-none focus:border-cyan-400 transition"
-            />
-          </div>
+          {/* Email */}
+          <input
+            type="email"
+            placeholder="Enter Email"
+            value={form.email}
+            onChange={(e) =>
+              setForm({ ...form, email: e.target.value })
+            }
+            className="w-full bg-[#0f172a] border border-gray-600 p-3 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+          />
 
-          <div>
-            <label className="block text-sm mb-2 text-slate-300">
-              Password
-            </label>
+          {/* Password */}
+          <input
+            type="password"
+            placeholder="Enter Password"
+            value={form.password}
+            onChange={(e) =>
+              setForm({ ...form, password: e.target.value })
+            }
+            className="w-full bg-[#0f172a] border border-gray-600 p-3 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+          />
 
-            <input
-              type="password"
-              placeholder="Enter your password"
-              value={form.password}
-              onChange={(e) =>
-                setForm({ ...form, password: e.target.value })
-              }
-              className="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-600 outline-none focus:border-cyan-400 transition"
-            />
-          </div>
-
+          {/* Login Button */}
           <button
             type="submit"
             className="w-full bg-cyan-500 hover:bg-cyan-600 transition duration-300 py-3 rounded-xl font-semibold text-lg"
           >
             Login
           </button>
-        </form>
 
-        {/* Footer */}
-        <p className="text-center text-slate-300 mt-6 text-sm">
-          <NavLink
-            to="/signup"
-            className="text-cyan-400 hover:text-cyan-300"
-          >
-            Don't have an account? Sign Up
-          </NavLink>
-        </p>
+          {/* Signup Link */}
+          <p className="text-center text-gray-400 mt-4">
+            Don't have an account?{" "}
+            <NavLink
+              to="/signup"
+              className="text-cyan-400 hover:text-cyan-300 font-medium"
+            >
+              Sign Up
+            </NavLink>
+          </p>
+        </form>
       </div>
     </div>
   );

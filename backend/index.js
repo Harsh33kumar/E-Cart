@@ -20,9 +20,11 @@ const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const admRoutes = require('./routes/admRoutes');
 const ProductRoutes = require('./routes/productRoutes');
-
+const cartRoutes = require("./routes/cartRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 
 app.use(express.json());// Middleware to parse JSON bodies
+
 
 //Routing
 app.get('/',(req,res)=>{
@@ -33,6 +35,8 @@ app.use("/api/admin",admRoutes)
 app.use("/api/auth",authRoutes);
 app.use("/api/user",userRoutes);
 app.use("/api/product",ProductRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/order", orderRoutes);
 
 //listening to the server
 app.listen(PORT, () => {
