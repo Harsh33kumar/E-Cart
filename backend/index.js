@@ -19,6 +19,7 @@ app.use(cookieParser());
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const admRoutes = require('./routes/admRoutes');
+const ProductRoutes = require('./routes/productRoutes');
 
 
 app.use(express.json());// Middleware to parse JSON bodies
@@ -31,6 +32,7 @@ app.get('/',(req,res)=>{
 app.use("/api/admin",admRoutes)
 app.use("/api/auth",authRoutes);
 app.use("/api/user",userRoutes);
+app.use("/api/product",ProductRoutes);
 
 //listening to the server
 app.listen(PORT, () => {

@@ -1,6 +1,21 @@
-import { NavLink, Link } from "react-router-dom";
-
+import { NavLink, Link, Navigate } from "react-router-dom";
+import { useContext } from "react";
+import axios from 'axios'
+import { adminDataContext } from "../context/UserContext";
 function Nav() {
+  let {getAdmin} = useContext(adminDataContext);
+
+  const logout_handller = async () =>{
+    try {
+      const result = await axios.post('/api/auth/logout',{withCredentials:true})
+      console.log(result.data);
+      getAdmin();
+      Navigate('/login');
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <>
       <div className="navbar">
@@ -20,22 +35,22 @@ function Nav() {
           Orders
         </NavLink>
         <NavLink
-          to="/about"
+          to="/addt"
           className={({ isActive }) => (isActive ? "active" : "")}
         >
-          About
+          Add
         </NavLink>
         <NavLink
-          to="/contact"
+          to="/lists"
           className={({ isActive }) => (isActive ? "active" : "")}
         >
-          Contact
+          Lists
         </NavLink>
         <NavLink
-          to="/signup"
           className={({ isActive }) => (isActive ? "active" : "")}
+          onClick={logout_handller}
         >
-          Signup
+          Logout
         </NavLink>
         <NavLink
           to="/login"

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { adminDataContext } from '../context/UserContext';
 
 function Login() {
   const navigate = useNavigate();
@@ -8,6 +9,7 @@ function Login() {
     email: "",
     password: ""
   });
+  let {adminData, getAdmin} = useContext(adminDataContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +25,8 @@ function Login() {
 
       if (res.data.success) {
         alert("Login Successful");
-        // navigate("/");
+        getAdmin();
+        navigate("/");
       }
 
     } catch (error) {
