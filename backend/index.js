@@ -31,12 +31,12 @@ app.get('/',(req,res)=>{
     return res.send('this is the default backend routing');
 })
 
-app.use("/api/admin",admRoutes)
-app.use("/api/auth",authRoutes);
-app.use("/api/user",userRoutes);
-app.use("/api/product",ProductRoutes);
-app.use("/api/cart", cartRoutes);
-app.use("/api/order", orderRoutes);
+app.use("/api/admin",admRoutes) // Admin routes (admin login, admin dashboard, etc.)
+app.use("/api/auth",authRoutes); // Authentication routes (login, signup,logout etc.)
+app.use("/api/user",userRoutes); // User routes (get current user, update user profile, etc.)
+app.use("/api/product",ProductRoutes); // Product routes (add product, get products, etc.)
+app.use("/api/cart", cartRoutes); // Cart routes (add to cart, get cart items, etc.)
+app.use("/api/order", orderRoutes); // Order routes (place order, get user orders, etc.)
 
 //listening to the server
 app.listen(PORT, () => {

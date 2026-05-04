@@ -61,6 +61,7 @@ const addproduct = async (req, res) => {
     const image4 = await uploadCloudinary(req.files.image4[0].path);
 
     const productData = {
+      
       name,
       category,
       price: Number(price),

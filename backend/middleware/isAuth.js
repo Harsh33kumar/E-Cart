@@ -17,7 +17,6 @@ const isAuth = async (req, res, next) => {
         }
 
         req.userId = verifyToken.userId;
-
         next();
 
     } catch (error) {

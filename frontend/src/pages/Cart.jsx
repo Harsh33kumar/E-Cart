@@ -1,59 +1,4 @@
-// import React, { useEffect, useState } from "react";
-// import axios from "axios";
 
-// function Cart() {
-//   const [items, setItems] = useState([]);
-
-//   const fetchCart = async () => {
-//     const res = await axios.get(
-//       "http://localhost:5000/api/cart/list"
-//     );
-
-//     setItems(res.data.carts);
-//   };
-
-//   const removeItem = async(id)=>{
-//     await axios.delete(
-//       `http://localhost:5000/api/cart/delete/${id}`
-//     );
-
-//     fetchCart();
-//   };
-
-//   useEffect(()=>{
-//     fetchCart();
-//   },[]);
-
-//   return (
-//     <div className="p-10 bg-[#0f172a] min-h-screen text-white">
-
-//       <h1 className="text-4xl mb-8">Cart</h1>
-
-//       {items.map((item)=>(
-//         <div
-//           key={item._id}
-//           className="bg-[#1e293b] p-5 rounded-xl mb-4 flex justify-between"
-//         >
-//           <div>
-//             <h2>{item.productId.name}</h2>
-//             <p>Size: {item.size}</p>
-//             <p>₹ {item.productId.price}</p>
-//           </div>
-
-//           <button
-//             onClick={()=>removeItem(item._id)}
-//             className="bg-red-500 px-5 rounded"
-//           >
-//             Remove
-//           </button>
-//         </div>
-//       ))}
-
-//     </div>
-//   );
-// }
-
-// export default Cart;
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -67,33 +12,34 @@ function Cart() {
   /* =====================================
       FETCH CART ITEMS
   ===================================== */
-  const fetchCart = async () => {
-    try {
-      const res = await axios.get(
-        "http://localhost:5000/api/cart/list"
-      );
+const fetchCart = async () => {
+  try {
+    const res = await axios.get(
+      "http://localhost:5000/api/cart/list",
+      { withCredentials: true }
+    );
 
-      setItems(res.data.carts);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    setItems(res.data.carts);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
   /* =====================================
       REMOVE ITEM
   ===================================== */
-  const removeItem = async (id) => {
-    try {
-      await axios.delete(
-        `http://localhost:5000/api/cart/delete/${id}`
-      );
+const removeItem = async (id) => {
+  try {
+    await axios.delete(
+      `http://localhost:5000/api/cart/delete/${id}`,
+      { withCredentials: true }
+    );
 
-      fetchCart();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+    fetchCart();
+  } catch (error) {
+    console.log(error);
+  }
+};
   /* =====================================
       BUY NOW
   ===================================== */

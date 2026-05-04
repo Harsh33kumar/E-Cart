@@ -264,10 +264,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { userDataContext } from "../context/UserContext";
+import { useContext } from "react";
 
 function ViewProduct() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { userData, getCurrentUser } = useContext(userDataContext);
 
   const [product, setProduct] = useState(null);
   const [mainImage, setMainImage] = useState("");
@@ -296,19 +299,27 @@ function ViewProduct() {
   /* =====================================
       ADD TO CART
   ===================================== */
-  const addToCart = async () => {
+  const addToCart = async ({productId}) => {
     if (!size) return alert("Select Size");
 
     try {
-      await axios.post("http://localhost:5000/api/cart/add", {
-        productId: product._id,
-        size,
-        quantity: 1,
-      });
+      await axios.post(
+        "http://localhost:5000/api/cart/add",
+        {
+          userId: userData._id, 
+          userName: userData.username,
+          userEmail: userData.email,
+          productId,
+          quantity: 1,
+          size: "M", // default size
+        },
+        { withCredentials: true }
+      );
 
-      alert("Added To Cart");
+      alert("Product Added To Cart");
     } catch (error) {
       console.log(error);
+      alert("Failed To Add Cart");
     }
   };
 
@@ -429,7 +440,9 @@ function ViewProduct() {
           {/* Buttons */}
           <div className="flex gap-4 mt-10 flex-wrap">
             <button
-              onClick={addToCart}
+              onClick={()=>{
+                addToCart({productId: product._id});
+              }}
               className="bg-cyan-500 px-8 py-3 rounded-lg hover:bg-cyan-600"
             >
               Add To Cart

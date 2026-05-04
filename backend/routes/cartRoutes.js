@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const isAuth = require('../middleware/isAuth.js');
 
 const {
  addCart,
@@ -7,8 +8,8 @@ const {
  deleteCart
 } = require("../controller/cartController");
 
-router.post("/add", addCart);
-router.get("/list", listCart);
-router.delete("/delete/:id", deleteCart);
+router.post("/add", isAuth, addCart);
+router.get("/list", isAuth, listCart);
+router.delete("/delete/:id", isAuth, deleteCart);
 
 module.exports = router;
